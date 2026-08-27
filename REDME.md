@@ -53,20 +53,7 @@ Resource usage_counter increments on each COMPLETED reservation
         → Resource → [AVAILABLE]
         → usage_counter reset
 ```
-
-### Database Interaction Flow
-
-```
-UI → ReservationService.request() → ReservationDAO → SQLite (labresa.db)
-        |→ checkConflict() queries existing reservations for time overlap
-        |→ ApprovalHandler chain resolves via ResourceDAO.cost lookup (Factory picks starting handler)
-
-On UsageService.checkOut():
-        |→ usage_logs insert
-        |→ ResourceService increments usage_counter
-             → if counter > threshold → ResourceState → UNDER_MAINTENANCE
-                  → maintenance_records insert
-                  → Observer notifies affected users
+            → Observer notifies affected users
 ```
 
 Both workflows involve state transitions with restricted legal actions per state, branching driven by runtime data (resource cost, usage counter vs. threshold), and cross-module interaction — which is what qualifies them as non-trivial workflows rather than simple CRUD operations.
