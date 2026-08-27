@@ -23,8 +23,11 @@ This combination of conflict-checking, conditional multi-level approval, and a s
 
 ---
 
-Workflows
-Workflow A — Reservation & Approval
+## Workflows
+
+### Workflow A — Reservation & Approval
+
+```
 User requests slot for Resource
    → Conflict check against existing reservations
         conflict found  → Rejected, alternative slots suggested
@@ -36,9 +39,11 @@ User requests slot for Resource
               chain rejects   → [REJECTED]
    → On usage day: user checks in → [IN_USE]
    → User checks out → UsageLog created → [COMPLETED]
+```
 
+### Workflow B — Maintenance Lifecycle
 
-Workflow B — Maintenance Lifecycle
+```
 Resource usage_counter increments on each COMPLETED reservation
    → counter crosses threshold OR technician flags damage
         → Resource → [UNDER_MAINTENANCE]
@@ -47,5 +52,42 @@ Resource usage_counter increments on each COMPLETED reservation
    → Technician completes service
         → Resource → [AVAILABLE]
         → usage_counter reset
+```
+
+### Database Interaction Flow
+
+```
+UI → ReservationService.request() → ReservationDAO → SQLite (labresa.db)
+        |→ checkConflict() queries existing reservations for time overlap
+        |→ ApprovalHandler chain resolves via ResourceDAO.cost lookup (Factory picks starting handler)
+
+On UsageService.checkOut():
+        |→ usage_logs insert
+        |→ ResourceService increments usage_counter
+             → if counter > threshold → ResourceState → UNDER_MAINTENANCE
+                  → maintenance_records insert
+                  → Observer notifies affected users
+```
 
 Both workflows involve state transitions with restricted legal actions per state, branching driven by runtime data (resource cost, usage counter vs. threshold), and cross-module interaction — which is what qualifies them as non-trivial workflows rather than simple CRUD operations.
+
+---
+
+## Tech Stack
+
+| Layer / Concern | Technology |
+|---|---|
+| UI framework | JavaFX (`javafx-controls`, `javafx-fxml`) |
+| Build & dependency management | Maven |
+| Database | SQLite (`org.xerial:sqlite-jdbc`) |
+| Connection pooling | HikariCP (`com.zaxxer:HikariCP`) |
+| Password hashing | jBCrypt (`org.mindrot:jbcrypt`) |
+| PDF report generation | Apache PDFBox (`org.apache.pdfbox:pdfbox`) |
+| Charts (utilization, peak hours) | JFreeChart-FX (`org.jfree:jfreechart-fx`) |
+| Extra UI controls (date/time pickers) | ControlsFX (`org.controlsfx:controlsfx`) |
+| JSON config / import-export | Jackson Databind (`com.fasterxml.jackson.core:jackson-databind`) |
+| QR check-in/check-out (optional) | ZXing (`com.google.zxing:core`, `zxing:javase`) |
+| Unit testing | JUnit 5 (`org.junit.jupiter:junit-jupiter`), Mockito (`org.mockito:mockito-core`) |
+| Logging | SLF4J + Logback (`org.slf4j:slf4j-api`, `ch.qos.logback:logback-classic`) |
+
+**Architecture:** 3-layer desktop architecture — JavaFX Controllers (Presentation) → Services (Application/business logic, where design patterns live) → DAOs (Persistence, SQLite via JDBC).
