@@ -52,15 +52,15 @@ Resource usage_counter increments on each COMPLETED reservation
    → Technician completes service
         → Resource → [AVAILABLE]
         → usage_counter reset
-```
-            → Observer notifies affected users
+        → Observer notifies affected users
 ```
 
 Both workflows involve state transitions with restricted legal actions per state, branching driven by runtime data (resource cost, usage counter vs. threshold), and cross-module interaction — which is what qualifies them as non-trivial workflows rather than simple CRUD operations.
-
 ---
 
-## Tech Stack
+### Tech Stack
+
+---
 
 | Layer / Concern | Technology |
 |---|---|
@@ -76,5 +76,11 @@ Both workflows involve state transitions with restricted legal actions per state
 | QR check-in/check-out (optional) | ZXing (`com.google.zxing:core`, `zxing:javase`) |
 | Unit testing | JUnit 5 (`org.junit.jupiter:junit-jupiter`), Mockito (`org.mockito:mockito-core`) |
 | Logging | SLF4J + Logback (`org.slf4j:slf4j-api`, `ch.qos.logback:logback-classic`) |
+---
 
-**Architecture:** 3-layer desktop architecture — JavaFX Controllers (Presentation) → Services (Application/business logic, where design patterns live) → DAOs (Persistence, SQLite via JDBC).
+###Architecture
+
+---
+
+3-layer desktop architecture — JavaFX Controllers (Presentation) → Services (Application/business logic, where design patterns live) → DAOs (Persistence, SQLite via JDBC).
+---
