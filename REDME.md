@@ -1,0 +1,25 @@
+# LabResa — Laboratory Resource & Equipment Booking System
+
+---
+
+## Overview
+
+LabResa is a JavaFX desktop application for managing the booking of shared laboratory equipment and resources (microscopes, 3D printers, testing kits, lab rooms) within a university department.
+
+The core problem it solves: multiple students and researchers compete for a limited pool of equipment, and higher-cost or higher-risk equipment requires supervisor sign-off before it can be used. A simple booking form isn't enough — the system needs to:
+
+- Prevent double-booking the same resource for overlapping time slots
+- Route approval differently depending on the resource's cost/risk level (cheap equipment auto-approves; expensive/restricted equipment needs a Technician, then a Faculty Supervisor, to sign off)
+- Track a resource's lifecycle so it can be temporarily blocked from booking while under maintenance
+- Automatically flag a resource for maintenance once it's been used enough times
+
+**Stakeholders:**
+- **Student/Researcher** — requests reservations, checks equipment in/out
+- **Lab Technician** — first-level approver, manages resources and maintenance
+- **Faculty Supervisor** — second-level approver for high-cost/restricted resources
+- **Maintenance Staff** — services equipment and clears it back to available
+
+This combination of conflict-checking, conditional multi-level approval, and a state-driven equipment lifecycle is what makes LabResa suitable for demonstrating meaningful design patterns rather than being a CRUD-only application.
+
+---
+
