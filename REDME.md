@@ -37,7 +37,7 @@ User requests slot for Resource
    → On usage day: user checks in → [IN_USE]
    → User checks out → UsageLog created → [COMPLETED]
 
-   
+
 Workflow B — Maintenance Lifecycle
 Resource usage_counter increments on each COMPLETED reservation
    → counter crosses threshold OR technician flags damage
@@ -47,3 +47,5 @@ Resource usage_counter increments on each COMPLETED reservation
    → Technician completes service
         → Resource → [AVAILABLE]
         → usage_counter reset
+
+Both workflows involve state transitions with restricted legal actions per state, branching driven by runtime data (resource cost, usage counter vs. threshold), and cross-module interaction — which is what qualifies them as non-trivial workflows rather than simple CRUD operations.
