@@ -77,7 +77,7 @@ Resource usage_counter increments on each COMPLETED reservation
 
 ```
 
-##Architecture
+## Architecture
 
 ```
 
