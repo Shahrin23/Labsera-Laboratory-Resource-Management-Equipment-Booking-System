@@ -23,3 +23,27 @@ This combination of conflict-checking, conditional multi-level approval, and a s
 
 ---
 
+Workflows
+Workflow A — Reservation & Approval
+User requests slot for Resource
+   → Conflict check against existing reservations
+        conflict found  → Rejected, alternative slots suggested
+        no conflict     → [PENDING]
+   → Resource type check
+        low-cost/common      → Auto-approved → [CONFIRMED]
+        high-cost/restricted → Approval chain: Technician → Faculty Supervisor
+              chain approves  → [CONFIRMED]
+              chain rejects   → [REJECTED]
+   → On usage day: user checks in → [IN_USE]
+   → User checks out → UsageLog created → [COMPLETED]
+
+   
+Workflow B — Maintenance Lifecycle
+Resource usage_counter increments on each COMPLETED reservation
+   → counter crosses threshold OR technician flags damage
+        → Resource → [UNDER_MAINTENANCE]
+        → blocks new reservations
+        → Observer notifies users with pending bookings on that resource
+   → Technician completes service
+        → Resource → [AVAILABLE]
+        → usage_counter reset
