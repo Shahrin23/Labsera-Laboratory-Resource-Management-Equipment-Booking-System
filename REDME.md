@@ -60,20 +60,18 @@ Resource usage_counter increments on each COMPLETED reservation
 
 ```
 
-| Layer / Concern | Technology |
-|---|---|
-| UI framework | JavaFX (`javafx-controls`, `javafx-fxml`) |
-| Build & dependency management | Maven |
-| Database | SQLite (`org.xerial:sqlite-jdbc`) |
-| Connection pooling | HikariCP (`com.zaxxer:HikariCP`) |
-| Password hashing | jBCrypt (`org.mindrot:jbcrypt`) |
-| PDF report generation | Apache PDFBox (`org.apache.pdfbox:pdfbox`) |
-| Charts (utilization, peak hours) | JFreeChart-FX (`org.jfree:jfreechart-fx`) |
-| Extra UI controls (date/time pickers) | ControlsFX (`org.controlsfx:controlsfx`) |
-| JSON config / import-export | Jackson Databind (`com.fasterxml.jackson.core:jackson-databind`) |
-| QR check-in/check-out (optional) | ZXing (`com.google.zxing:core`, `zxing:javase`) |
-| Unit testing | JUnit 5 (`org.junit.jupiter:junit-jupiter`), Mockito (`org.mockito:mockito-core`) |
-| Logging | SLF4J + Logback (`org.slf4j:slf4j-api`, `ch.qos.logback:logback-classic`) |
+1.JavaFX (javafx-controls, javafx-fxml) — UI framework
+2.Maven — build & dependency management
+3.SQLite (org.xerial:sqlite-jdbc) — database
+4.HikariCP — connection pooling
+5.jBCrypt — password hashing
+6.Apache PDFBox — PDF report generation
+7.JFreeChart-FX — charts/reports
+8.ControlsFX — extra UI controls (date/time pickers)
+9.Jackson Databind — JSON config/import-export
+10.ZXing (optional) — QR check-in/check-out
+11.JUnit 5 + Mockito — unit testing
+12.SLF4J + Logback — logging
 
 ```
 
