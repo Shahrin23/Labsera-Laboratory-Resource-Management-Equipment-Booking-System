@@ -1,4 +1,4 @@
-package com.labresa.patterns.strategy;
+package com.labresa.patterns;
 
 import com.labresa.model.Equipment;
 import com.labresa.model.LabRoom;
