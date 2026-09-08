@@ -2,7 +2,6 @@ package com.labresa.model;
 
 import java.time.LocalDateTime;
 
-/** One usage log per COMPLETED reservation, recording actual check-in/check-out times. */
 public class UsageLog {
 
     private int id;
@@ -11,12 +10,10 @@ public class UsageLog {
     private LocalDateTime checkOut;
     private String conditionNotes;
 
-    public UsageLog(int id, int reservationId, LocalDateTime checkIn, LocalDateTime checkOut, String conditionNotes) {
+    public UsageLog(int id, int reservationId, LocalDateTime checkIn) {
         this.id = id;
         this.reservationId = reservationId;
         this.checkIn = checkIn;
-        this.checkOut = checkOut;
-        this.conditionNotes = conditionNotes;
     }
 
     public int getId() { return id; }
@@ -27,4 +24,10 @@ public class UsageLog {
     public void setCheckOut(LocalDateTime checkOut) { this.checkOut = checkOut; }
     public String getConditionNotes() { return conditionNotes; }
     public void setConditionNotes(String conditionNotes) { this.conditionNotes = conditionNotes; }
+
+    @Override
+    public String toString() {
+        return String.format("UsageLog[id=%d, reservation=%d, in=%s, out=%s]",
+                id, reservationId, checkIn, checkOut);
+    }
 }

@@ -1,13 +1,13 @@
 package com.labresa.dao;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import com.labresa.model.MaintenanceRecord;
+
+import java.util.List;
 
 public interface MaintenanceRecordDAO {
     void save(MaintenanceRecord record);
-    void completeActive(int resourceId, LocalDateTime endDate);
-    List<MaintenanceRecord> findAll();
+    void update(MaintenanceRecord record);
     List<MaintenanceRecord> findByResource(int resourceId);
+    List<MaintenanceRecord> findAll();
 }
+

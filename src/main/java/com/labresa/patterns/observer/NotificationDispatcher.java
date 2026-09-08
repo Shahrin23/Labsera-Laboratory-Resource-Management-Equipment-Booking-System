@@ -3,33 +3,22 @@ package com.labresa.patterns.observer;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.labresa.dao.NotificationDAO;
-import com.labresa.model.Notification;
 
-/**
- * Observer pattern (subject side): persists every notification once, then
- * broadcasts it to every registered NotificationChannel. Services that trigger
- * a notification (approval results, maintenance alerts) only depend on this
- * class - never on individual channels - so adding a new channel later
- * requires no change to ApprovalService, MaintenanceService, etc.
- */
 public class NotificationDispatcher {
 
-    private final NotificationDAO notificationDAO;
-    private final List<NotificationChannel> channels = new ArrayList<>();
+    private final List<NotificationObserver> observers = new ArrayList<>();
 
-    public NotificationDispatcher(NotificationDAO notificationDAO) {
-        this.notificationDAO = notificationDAO;
+    public void subscribe(NotificationObserver observer) {
+        observers.add(observer);
     }
 
-    public void subscribe(NotificationChannel channel) {
-        channels.add(channel);
+    public void unsubscribe(NotificationObserver observer) {
+        observers.remove(observer);
     }
 
-    public void dispatch(Notification notification) {
-        notificationDAO.save(notification);
-        for (NotificationChannel channel : channels) {
-            channel.send(notification);
+    public void dispatch(String eventType, String message) {
+        for (NotificationObserver o : observers) {
+            o.onNotify(eventType, message);
         }
     }
 }
