@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Reservation {
 
-    public enum Status { PENDING, CONFIRMED, REJECTED, CANCELLED, COMPLETED }
+    public enum Status { PENDING, CONFIRMED, REJECTED, CANCELLED, IN_USE, COMPLETED }
 
     private int id;
     private final int resourceId;
