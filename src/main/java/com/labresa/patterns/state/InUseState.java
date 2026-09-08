@@ -19,8 +19,9 @@ public class InUseState implements ResourceState {
 
     @Override
     public void checkOut(Resource resource) {
-        resource.incrementUsageCounter();
+
         resource.setState(new AvailableState());
+        resource.incrementUsageCounter();
     }
 
     @Override

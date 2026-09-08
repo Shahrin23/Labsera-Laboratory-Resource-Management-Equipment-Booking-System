@@ -63,8 +63,23 @@ public abstract class Resource {
         usageCounter = 0;
     }
 
+    /**
+     * Used only by DAOs when reconstructing a Resource from a database row.
+     * Bypasses the normal State transition rules, since this is loading
+     * already-persisted, already-valid data rather than performing a live action.
+     */
+    public void restore(ResourceState state, int usageCounter) {
+        this.state = state;
+        this.usageCounter = usageCounter;
+    }
+
     public int getId() {
         return id;
+    }
+
+    /** Used by DAOs to assign the database-generated id after an INSERT. */
+    public void setId(int id) {
+        this.id = id;
     }
     public String getName() {
         return name; }

@@ -1,9 +1,8 @@
 package com.labresa.dao;
 
-import com.labresa.model.Resource;
-
 import java.util.List;
-import java.util.Optional;
+
+import com.labresa.model.Resource;
 
 
 public interface ResourceDAO {
