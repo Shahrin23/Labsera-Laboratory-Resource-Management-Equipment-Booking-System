@@ -1,9 +1,5 @@
 package com.labresa.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
 import com.labresa.dao.MaintenanceRecordDAO;
 import com.labresa.dao.ReservationDAO;
 import com.labresa.dao.ResourceDAO;
@@ -13,6 +9,10 @@ import com.labresa.model.Reservation;
 import com.labresa.model.Resource;
 import com.labresa.patterns.observer.NotificationDispatcher;
 import com.labresa.patterns.state.UnderMaintenanceState;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 
 public class MaintenanceService {
@@ -34,7 +34,7 @@ public class MaintenanceService {
 
 
     public Optional<MaintenanceRecord> recordCompletedUse(Resource resource) {
-        resource.checkOut();
+        resource.incrementUsageCounter(); // may internally auto-transition to UNDER_MAINTENANCE
         resourceDAO.update(resource);
 
         if (isUnderMaintenance(resource)) {
