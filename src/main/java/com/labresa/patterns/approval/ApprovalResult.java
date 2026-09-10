@@ -22,6 +22,12 @@ public class ApprovalResult {
         return new ApprovalResult(Decision.REJECTED, null, reason);
     }
 
+    public static ApprovalResult escalated(String reason) {
+        return new ApprovalResult(Decision.ESCALATED, null, reason);
+    }
+
+    public boolean isEscalated() { return decision == Decision.ESCALATED; }
+
     public Decision getDecision() { return decision; }
     public String getApprovedBy() { return approvedBy; }
     public String getReason() { return reason; }
@@ -29,9 +35,11 @@ public class ApprovalResult {
 
     @Override
     public String toString() {
-        return decision == Decision.APPROVED
-                ? "APPROVED by " + approvedBy
-                : "REJECTED: " + reason;
+        switch (decision) {
+            case APPROVED: return "APPROVED by " + approvedBy;
+            case ESCALATED: return "AWAITING APPROVAL: " + reason;
+            default: return "REJECTED: " + reason;
+        }
     }
 }
 

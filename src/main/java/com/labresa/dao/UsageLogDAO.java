@@ -1,13 +1,8 @@
 package com.labresa.dao;
 
-import com.labresa.model.UsageLog;
-
-import java.util.List;
+import java.time.LocalDateTime;
 
 public interface UsageLogDAO {
-    void save(UsageLog usageLog);
-    void update(UsageLog usageLog);
-    List<UsageLog> findByResource(int resourceId);
-    List<UsageLog> findAll();
+    void insertCheckIn(int reservationId, LocalDateTime checkIn);
+    void completeCheckOut(int reservationId, LocalDateTime checkOut, String conditionNotes);
 }
-

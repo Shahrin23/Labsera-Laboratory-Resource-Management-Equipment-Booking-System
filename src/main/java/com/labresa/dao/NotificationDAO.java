@@ -1,8 +1,8 @@
 package com.labresa.dao;
 
-import java.util.List;
-
 import com.labresa.model.Notification;
+
+import java.util.List;
 
 public interface NotificationDAO {
     void save(Notification notification);

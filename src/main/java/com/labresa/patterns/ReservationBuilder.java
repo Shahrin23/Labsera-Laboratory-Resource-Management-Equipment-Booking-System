@@ -18,6 +18,10 @@ public class ReservationBuilder {
     private boolean recurring = false;
     private String notes = "";
     private String priorityTag = "";
+    private int quantity = 1;
+    private String supervisorName = null;
+    private String supervisorRole = null;
+    private String letterReference = null;
 
     public ReservationBuilder(int resourceId, int userId, User.Role requesterRole,
                               LocalDateTime startTime, LocalDateTime endTime) {
@@ -36,9 +40,20 @@ public class ReservationBuilder {
     public ReservationBuilder recurring(boolean recurring) { this.recurring = recurring; return this; }
     public ReservationBuilder notes(String notes) { this.notes = notes; return this; }
     public ReservationBuilder priorityTag(String priorityTag) { this.priorityTag = priorityTag; return this; }
+    public ReservationBuilder quantity(int quantity) {
+        if (quantity < 1) throw new IllegalArgumentException("Quantity must be at least 1");
+        this.quantity = quantity;
+        return this;
+    }
+    public ReservationBuilder formalLetter(String supervisorName, String supervisorRole, String letterReference) {
+        this.supervisorName = supervisorName;
+        this.supervisorRole = supervisorRole;
+        this.letterReference = letterReference;
+        return this;
+    }
 
     public Reservation build() {
         return new Reservation(id, resourceId, userId, requesterRole, startTime, endTime,
-                status, recurring, notes, priorityTag);
+                status, recurring, notes, priorityTag, quantity, supervisorName, supervisorRole, letterReference);
     }
 }
