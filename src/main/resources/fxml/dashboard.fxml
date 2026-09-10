@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.labresa.controller.DashboardController">
+    <top>
+        <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="16">
+            <Label text="&#x1F52C;" style="-fx-font-size: 26px;"/>
+            <VBox>
+                <Label text="LabResa" styleClass="nav-title"/>
+                <Label text="Laboratory Resource &amp; Equipment Booking" styleClass="nav-subtitle"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="currentUserLabel" styleClass="nav-user-label"/>
+            <Button text="Log Out" onAction="#handleLogout" styleClass="btn-danger"/>
+        </HBox>
+    </top>
+    <center>
+        <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
+
+            <!-- ================= BOOK A RESOURCE (multi-item cart) ================= -->
+            <Tab text="&#x1F4E6;  Book a Resource" fx:id="bookTab">
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                    <VBox spacing="14">
+                        <padding><Insets top="16" right="16" bottom="24" left="16"/></padding>
+
+                        <VBox fx:id="bookingStep1" spacing="14">
+                            <VBox styleClass="card" spacing="10">
+                                <Label text="Available Resources" styleClass="section-title"/>
+                                <TableView fx:id="resourceTable" prefHeight="200" minHeight="140">
+                                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                                    <columns>
+                                        <TableColumn fx:id="colResIcon" text="" minWidth="40" maxWidth="40"/>
+                                        <TableColumn fx:id="colResName" text="Name" minWidth="150"/>
+                                        <TableColumn fx:id="colResCategory" text="Category" minWidth="90"/>
+                                        <TableColumn fx:id="colResStatus" text="Status" minWidth="110"/>
+                                        <TableColumn fx:id="colResAvailable" text="Available" minWidth="90"/>
+                                    </columns>
+                                </TableView>
+                            </VBox>
+
+                            <VBox styleClass="card" spacing="12">
+                                <Label text="Add Items to Your Booking" styleClass="section-title"/>
+                                <HBox spacing="16" alignment="CENTER_LEFT">
+                                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                        <Label text="Resource" styleClass="field-label"/>
+                                        <ComboBox fx:id="resourceCombo" maxWidth="Infinity"/>
+                                    </VBox>
+                                    <VBox spacing="4">
+                                        <Label text="Quantity" styleClass="field-label"/>
+                                        <Spinner fx:id="quantitySpinner" prefWidth="90" editable="true"/>
+                                    </VBox>
+                                    <VBox spacing="4">
+                                        <Label text=" " styleClass="field-label"/>
+                                        <Button text="+ Add to Booking" onAction="#handleAddToCart" styleClass="btn-secondary"/>
+                                    </VBox>
+                                </HBox>
+
+                                <Label text="Your Booking List" styleClass="field-label"/>
+                                <ListView fx:id="cartListView" prefHeight="120" minHeight="80"/>
+
+                                <Separator/>
+
+                                <HBox spacing="16">
+                                    <VBox spacing="4">
+                                        <Label text="Start Date" styleClass="field-label"/>
+                                        <DatePicker fx:id="startDatePicker" prefWidth="150"/>
+                                    </VBox>
+                                    <VBox spacing="4">
+                                        <Label text="End Date" styleClass="field-label"/>
+                                        <DatePicker fx:id="endDatePicker" prefWidth="150"/>
+                                    </VBox>
+                                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                        <Label text="Notes (optional)" styleClass="field-label"/>
+                                        <TextField fx:id="notesField"/>
+                                    </VBox>
+                                </HBox>
+                                <CheckBox fx:id="recurringCheck" text="Recurring booking"/>
+
+                                <VBox fx:id="formalLetterBox" spacing="10" styleClass="confirm-box" managed="false" visible="false">
+                                    <Label text="Special equipment in your list requires a formal letter" styleClass="section-title" style="-fx-text-fill: #B8860B;"/>
+                                    <HBox spacing="16">
+                                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                            <Label text="Supervisor / Chairman / Director Name" styleClass="field-label"/>
+                                            <TextField fx:id="supervisorNameField" promptText="Full name"/>
+                                        </VBox>
+                                        <VBox spacing="4">
+                                            <Label text="Their Role" styleClass="field-label"/>
+                                            <ComboBox fx:id="supervisorRoleCombo" prefWidth="160"/>
+                                        </VBox>
+                                    </HBox>
+                                    <VBox spacing="4">
+                                        <Label text="Letter Reference / Description" styleClass="field-label"/>
+                                        <TextField fx:id="letterReferenceField" promptText="e.g. Letter dated 2026-09-01, ref #CS-114"/>
+                                    </VBox>
+                                </VBox>
+
+                                <Label fx:id="step1ErrorLabel" styleClass="error-label" wrapText="true" managed="false" visible="false"/>
+                                <HBox>
+                                    <Button text="Save &amp; Continue  &#8594;" onAction="#handleSaveAndContinue" styleClass="btn-primary"/>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+
+                        <VBox fx:id="bookingStep2" styleClass="card" spacing="14" managed="false" visible="false">
+                            <Label text="Confirm Your Booking" styleClass="section-title"/>
+                            <VBox fx:id="confirmItemsBox" spacing="6" styleClass="confirm-box"/>
+                            <Label fx:id="requestResultLabel" wrapText="true"/>
+                            <HBox spacing="10">
+                                <Button text="&#8592;  Back" onAction="#handleBackToStep1" styleClass="btn-secondary"/>
+                                <Button text="Confirm Booking" onAction="#handleConfirmBooking" styleClass="btn-primary"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <!-- ================= MY RESERVATIONS ================= -->
+            <Tab text="&#x1F4CB;  My Reservations">
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                    <VBox spacing="12">
+                        <padding><Insets top="16" right="16" bottom="24" left="16"/></padding>
+                        <VBox styleClass="card" spacing="10">
+                            <TableView fx:id="reservationTable" prefHeight="320" minHeight="200">
+                                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                                <columns>
+                                    <TableColumn fx:id="colResvId" text="ID" minWidth="40"/>
+                                    <TableColumn fx:id="colResvResource" text="Resource" minWidth="130"/>
+                                    <TableColumn fx:id="colResvQty" text="Qty" minWidth="50"/>
+                                    <TableColumn fx:id="colResvStart" text="Start" minWidth="150"/>
+                                    <TableColumn fx:id="colResvEnd" text="End" minWidth="150"/>
+                                    <TableColumn fx:id="colResvStatus" text="Status" minWidth="110"/>
+                                </columns>
+                            </TableView>
+                            <HBox spacing="10">
+                                <Button text="&#x2713; Check In" onAction="#handleCheckIn" styleClass="btn-secondary"/>
+                                <Button text="&#x2713; Check Out" onAction="#handleCheckOut" styleClass="btn-secondary"/>
+                                <Button text="&#x2715; Cancel" onAction="#handleCancel" styleClass="btn-danger"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button text="Refresh" onAction="#handleRefresh" styleClass="btn-link"/>
+                            </HBox>
+                            <Label fx:id="actionResultLabel" wrapText="true"/>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <!-- ================= APPROVAL QUEUE (Faculty/Admin only) ================= -->
+            <Tab text="&#x2696;  Approval Queue" fx:id="approvalTab">
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                    <VBox spacing="12">
+                        <padding><Insets top="16" right="16" bottom="24" left="16"/></padding>
+                        <VBox styleClass="card" spacing="10">
+                            <Label text="Special equipment requests awaiting your decision" styleClass="section-title"/>
+                            <TableView fx:id="approvalTable" prefHeight="220" minHeight="150">
+                                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                                <columns>
+                                    <TableColumn fx:id="colApprId" text="ID" minWidth="40"/>
+                                    <TableColumn fx:id="colApprResource" text="Resource" minWidth="130"/>
+                                    <TableColumn fx:id="colApprApplicant" text="Applicant" minWidth="110"/>
+                                    <TableColumn fx:id="colApprSupervisor" text="Supervisor / Role" minWidth="150"/>
+                                    <TableColumn fx:id="colApprLetter" text="Letter Reference" minWidth="150"/>
+                                    <TableColumn fx:id="colApprDates" text="Dates" minWidth="150"/>
+                                </columns>
+                            </TableView>
+                            <VBox spacing="4">
+                                <Label text="Decision comments (optional)" styleClass="field-label"/>
+                                <TextField fx:id="approvalCommentsField"/>
+                            </VBox>
+                            <HBox spacing="10">
+                                <Button text="&#x2713; Approve" onAction="#handleApprove" styleClass="btn-primary"/>
+                                <Button text="&#x2715; Reject" onAction="#handleReject" styleClass="btn-danger"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button text="Refresh" onAction="#handleRefreshApprovals" styleClass="btn-link"/>
+                            </HBox>
+                            <Label fx:id="approvalResultLabel" wrapText="true"/>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <!-- ================= MANAGE RESOURCES (Technician/Admin only) ================= -->
+            <Tab text="&#x1F527;  Manage Resources" fx:id="maintenanceTab">
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                    <VBox spacing="12">
+                        <padding><Insets top="16" right="16" bottom="24" left="16"/></padding>
+                        <VBox styleClass="card" spacing="10">
+                            <Label text="Toggle equipment availability for maintenance" styleClass="section-title"/>
+                            <TableView fx:id="maintenanceResourceTable" prefHeight="240" minHeight="160">
+                                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                                <columns>
+                                    <TableColumn fx:id="colMaintName" text="Name" minWidth="150"/>
+                                    <TableColumn fx:id="colMaintCategory" text="Category" minWidth="90"/>
+                                    <TableColumn fx:id="colMaintQty" text="Total / Available" minWidth="120"/>
+                                    <TableColumn fx:id="colMaintStatus" text="Status" minWidth="130"/>
+                                    <TableColumn fx:id="colMaintUsage" text="Usage" minWidth="100"/>
+                                </columns>
+                            </TableView>
+                            <VBox spacing="4">
+                                <Label text="Maintenance notes" styleClass="field-label"/>
+                                <TextField fx:id="maintenanceNotesField"/>
+                            </VBox>
+                            <HBox spacing="10">
+                                <Button text="&#x1F6D1; Mark Unavailable (Start Maintenance)" onAction="#handleStartMaintenance" styleClass="btn-danger"/>
+                                <Button text="&#x2713; Mark Available (Complete Maintenance)" onAction="#handleCompleteMaintenance" styleClass="btn-primary"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button text="Refresh" onAction="#handleRefreshMaintenance" styleClass="btn-link"/>
+                            </HBox>
+                            <Label fx:id="maintenanceResultLabel" wrapText="true"/>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <!-- ================= NOTIFICATIONS ================= -->
+            <Tab text="&#x1F514;  Notifications">
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                    <VBox spacing="12">
+                        <padding><Insets top="16" right="16" bottom="24" left="16"/></padding>
+                        <ListView fx:id="notificationList" prefHeight="450"/>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <!-- ================= REPORTS ================= -->
+            <Tab text="&#x1F4CA;  Reports">
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                    <VBox spacing="16">
+                        <padding><Insets top="16" right="16" bottom="24" left="16"/></padding>
+
+                        <VBox styleClass="card" spacing="10">
+                            <Label text="Resource Utilization" styleClass="section-title"/>
+                            <TableView fx:id="utilizationTable" prefHeight="220" minHeight="150">
+                                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                                <columns>
+                                    <TableColumn fx:id="colUtilName" text="Resource" minWidth="150"/>
+                                    <TableColumn fx:id="colUtilCategory" text="Category" minWidth="90"/>
+                                    <TableColumn fx:id="colUtilAvailable" text="Available / Total" minWidth="120"/>
+                                    <TableColumn fx:id="colUtilUsage" text="Usage / Threshold" minWidth="130"/>
+                                    <TableColumn fx:id="colUtilStatus" text="Status" minWidth="120"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+
+                        <VBox styleClass="card" spacing="10">
+                            <Label text="Maintenance History" styleClass="section-title"/>
+                            <TableView fx:id="maintenanceHistoryTable" prefHeight="200" minHeight="150">
+                                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                                <columns>
+                                    <TableColumn fx:id="colMhResource" text="Resource" minWidth="140"/>
+                                    <TableColumn fx:id="colMhReason" text="Reason" minWidth="120"/>
+                                    <TableColumn fx:id="colMhStart" text="Start" minWidth="150"/>
+                                    <TableColumn fx:id="colMhEnd" text="End" minWidth="150"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+
+                        <HBox>
+                            <Button text="Refresh Reports" onAction="#handleRefreshReports" styleClass="btn-link"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>

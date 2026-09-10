@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" fitToHeight="false" style="-fx-background: #F4F6FA; -fx-background-color: #F4F6FA;"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.labresa.controller.LoginController">
+    <StackPane style="-fx-background-color: #F4F6FA;" minHeight="640">
+        <padding><Insets top="40" right="20" bottom="40" left="20"/></padding>
+        <VBox alignment="CENTER" spacing="0" maxWidth="380" styleClass="auth-card">
+            <VBox alignment="CENTER" spacing="6">
+                <Label text="&#x1F52C;" style="-fx-font-size: 40px;"/>
+                <Label text="LabResa" styleClass="auth-title"/>
+                <Label text="Laboratory Resource &amp; Equipment Booking" styleClass="auth-subtitle"/>
+            </VBox>
+
+            <VBox spacing="14">
+                <padding><Insets top="28" right="0" bottom="0" left="0"/></padding>
+
+                <VBox spacing="4">
+                    <Label text="Email" styleClass="field-label"/>
+                    <TextField fx:id="emailField" promptText="you@labresa.edu"/>
+                </VBox>
+                <VBox spacing="4">
+                    <Label text="Password" styleClass="field-label"/>
+                    <PasswordField fx:id="passwordField" promptText="Enter your password"/>
+                </VBox>
+
+                <Label fx:id="errorLabel" styleClass="error-label" wrapText="true" managed="false" visible="false"/>
+
+                <Button text="Log In" onAction="#handleLogin" defaultButton="true" maxWidth="Infinity" styleClass="btn-primary"/>
+
+                <HBox alignment="CENTER_RIGHT">
+                    <Button text="Forgot password?" onAction="#goToForgotPassword" styleClass="btn-link"/>
+                </HBox>
+
+                <Separator/>
+
+                <HBox alignment="CENTER" spacing="6">
+                    <Label text="Don't have an account?" styleClass="hint-label"/>
+                    <Button text="Sign up" onAction="#goToSignUp" styleClass="btn-link"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </StackPane>
+</ScrollPane>

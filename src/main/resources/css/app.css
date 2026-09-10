@@ -1,0 +1,263 @@
+/* LabResa - shared application stylesheet */
+
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #EEF1FA;
+}
+
+/* ---------- Top navigation bar ---------- */
+.nav-bar {
+    -fx-background-color: linear-gradient(to right, #2A3B66, #3B5BFF);
+    -fx-padding: 14 24 14 24;
+}
+.nav-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+.nav-subtitle {
+    -fx-text-fill: #C9D2F5;
+    -fx-font-size: 11px;
+}
+.nav-user-label {
+    -fx-text-fill: #E4E8F5;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+}
+
+/* ---------- Icon badges (resource category glyphs) ---------- */
+.icon-badge {
+    -fx-background-radius: 8;
+}
+.icon-blue   { -fx-background-color: #DCE6FF; }
+.icon-purple { -fx-background-color: #EBDCFF; }
+.icon-teal   { -fx-background-color: #D6F5EC; }
+.icon-orange { -fx-background-color: #FFE7D1; }
+.icon-gray   { -fx-background-color: #E7E9F0; }
+
+/* ---------- Auth screens (login / sign up / forgot password) ---------- */
+.auth-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-padding: 40;
+    -fx-effect: dropshadow(gaussian, rgba(59,91,255,0.20), 30, 0.25, 0, 8);
+    -fx-border-color: #E9EDFB;
+    -fx-border-width: 1;
+    -fx-border-radius: 16;
+}
+.auth-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2A44;
+}
+.auth-subtitle {
+    -fx-font-size: 12.5px;
+    -fx-text-fill: #7A8299;
+}
+
+/* ---------- Cards / panels ---------- */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 18;
+    -fx-effect: dropshadow(gaussian, rgba(31,42,68,0.10), 16, 0.15, 0, 4);
+    -fx-border-color: #EDF0FA;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+.confirm-box {
+    -fx-background-color: #F5F7FF;
+    -fx-background-radius: 8;
+    -fx-padding: 14;
+    -fx-border-color: #DCE4FF;
+    -fx-border-radius: 8;
+}
+.section-title {
+    -fx-font-size: 15.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2A44;
+}
+
+/* ---------- Text fields ---------- */
+.text-field, .password-field, .combo-box, .date-picker {
+    -fx-background-color: #F7F8FB;
+    -fx-background-radius: 8;
+    -fx-border-color: #D7DCEA;
+    -fx-border-radius: 8;
+    -fx-padding: 8 10 8 10;
+}
+.text-field:focused, .password-field:focused, .combo-box:focused, .date-picker:focused {
+    -fx-border-color: #3B5BFF;
+}
+.field-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #444B63;
+}
+
+/* ---------- Inline validation ---------- */
+.error-label {
+    -fx-text-fill: #D63C3C;
+    -fx-font-size: 11.5px;
+}
+.success-label {
+    -fx-text-fill: #1E9E5A;
+    -fx-font-size: 11.5px;
+}
+.hint-label {
+    -fx-text-fill: #9198AC;
+    -fx-font-size: 10.5px;
+}
+
+/* ---------- Buttons ---------- */
+.button {
+    -fx-background-radius: 8;
+    -fx-padding: 9 18 9 18;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+.btn-primary {
+    -fx-background-color: #3B5BFF;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.btn-primary:hover {
+    -fx-background-color: #2E48D9;
+}
+.btn-primary:disabled {
+    -fx-background-color: #B9C2F0;
+}
+.btn-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: #3B5BFF;
+    -fx-border-radius: 8;
+    -fx-text-fill: #3B5BFF;
+    -fx-font-weight: bold;
+}
+.btn-secondary:hover {
+    -fx-background-color: #EEF1FF;
+}
+.btn-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #3B5BFF;
+    -fx-padding: 4 0 4 0;
+    -fx-underline: false;
+}
+.btn-link:hover {
+    -fx-underline: true;
+}
+.btn-danger {
+    -fx-background-color: transparent;
+    -fx-border-color: #D63C3C;
+    -fx-border-radius: 8;
+    -fx-text-fill: #D63C3C;
+}
+.btn-danger:hover {
+    -fx-background-color: #FCEAEA;
+}
+
+/* ---------- Tabs ---------- */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: white;
+}
+.tab-pane .tab-header-area {
+    -fx-padding: 6 0 0 8;
+}
+.tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 10 20 10 20;
+}
+.tab-pane .tab:selected {
+    -fx-background-color: #EEF1FF;
+}
+.tab-pane .tab-label {
+    -fx-text-fill: #7A8299;
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+}
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #3B5BFF;
+}
+.tab-pane .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+.tab-pane {
+    -fx-background-color: #EEF1FA;
+    -fx-tab-min-height: 42;
+}
+
+/* ---------- Tables ---------- */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #E4E8F2;
+    -fx-border-radius: 10;
+}
+.table-view .column-header-background {
+    -fx-background-color: #F7F8FB;
+    -fx-background-radius: 10 10 0 0;
+}
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #E4E8F2 transparent;
+}
+.table-view .column-header .label {
+    -fx-text-fill: #444B63;
+    -fx-font-weight: bold;
+    -fx-font-size: 11.5px;
+}
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #F0F2F8 transparent;
+}
+.table-row-cell:selected {
+    -fx-background-color: #EEF1FF;
+}
+.table-row-cell:odd {
+    -fx-background-color: #FBFCFE;
+}
+
+/* ---------- Badges (status pills) ---------- */
+.badge {
+    -fx-padding: 3 10 3 10;
+    -fx-background-radius: 12;
+    -fx-font-size: 10.5px;
+    -fx-font-weight: bold;
+}
+.badge-confirmed { -fx-background-color: #DFF6E7; -fx-text-fill: #1E9E5A; }
+.badge-pending   { -fx-background-color: #FFF3D6; -fx-text-fill: #B8860B; }
+.badge-rejected  { -fx-background-color: #FCE6E6; -fx-text-fill: #D63C3C; }
+.badge-completed { -fx-background-color: #E4E8F2; -fx-text-fill: #444B63; }
+.badge-in_use    { -fx-background-color: #E1EBFF; -fx-text-fill: #3B5BFF; }
+.badge-cancelled { -fx-background-color: #F0F0F0; -fx-text-fill: #9198AC; }
+.badge-available { -fx-background-color: #DFF6E7; -fx-text-fill: #1E9E5A; }
+.badge-reserved  { -fx-background-color: #FFF3D6; -fx-text-fill: #B8860B; }
+.badge-under_maintenance { -fx-background-color: #FCE6E6; -fx-text-fill: #D63C3C; }
+.badge-common    { -fx-background-color: #DCE6FF; -fx-text-fill: #3B5BFF; }
+.badge-special   { -fx-background-color: #FFE0EC; -fx-text-fill: #D6336C; }
+.badge { -fx-font-size: 11.5px; }
+
+/* ---------- List view (notifications) ---------- */
+.list-view {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #E4E8F2;
+    -fx-border-radius: 10;
+}
+.list-cell {
+    -fx-padding: 10 12 10 12;
+    -fx-border-color: transparent transparent #F0F2F8 transparent;
+}
+
+/* ---------- Report text area ---------- */
+.text-area {
+    -fx-background-color: white;
+    -fx-border-color: #E4E8F2;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+.text-area .content {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
