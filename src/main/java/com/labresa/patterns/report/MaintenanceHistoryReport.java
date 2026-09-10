@@ -1,9 +1,9 @@
 package com.labresa.patterns.report;
 
-import java.util.List;
-
 import com.labresa.dao.MaintenanceRecordDAO;
 import com.labresa.model.MaintenanceRecord;
+
+import java.util.List;
 
 public class MaintenanceHistoryReport extends ReportGenerator<MaintenanceRecord> {
 

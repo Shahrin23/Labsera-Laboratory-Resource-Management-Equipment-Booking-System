@@ -1,9 +1,9 @@
 package com.labresa.patterns.report;
 
-import java.util.List;
-
 import com.labresa.dao.ResourceDAO;
 import com.labresa.model.Resource;
+
+import java.util.List;
 
 public class UtilizationReport extends ReportGenerator<Resource> {
 

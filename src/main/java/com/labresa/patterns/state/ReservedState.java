@@ -2,24 +2,18 @@ package com.labresa.patterns.state;
 
 import com.labresa.model.Resource;
 
+/**
+ * RETIRED as of Round 4, kept for reference rather than deleted.
+ *
+ * Previously represented "this single resource instance is reserved."
+ * Once bookings became quantity-based (a resource can have many units, with
+ * some checked out and others still free at the same time), a single global
+ * RESERVED state for the whole resource no longer made sense - it would
+ * incorrectly block every unit just because one was booked. Individual
+ * booking lifecycle now lives entirely on Reservation.status instead.
+ * This class is never assigned to a Resource in the current flow.
+ */
 public class ReservedState implements ResourceState {
-
-    @Override
-    public void reserve(Resource resource) {
-        throw new IllegalResourceTransitionException(
-                "Cannot reserve resource '" + resource.getName() + "': it is already reserved.");
-    }
-
-    @Override
-    public void checkIn(Resource resource) {
-        resource.setState(new InUseState());
-    }
-
-    @Override
-    public void checkOut(Resource resource) {
-        throw new IllegalResourceTransitionException(
-                "Cannot check out resource '" + resource.getName() + "': it hasn't been checked in yet.");
-    }
 
     @Override
     public void markUnderMaintenance(Resource resource) {
@@ -36,4 +30,3 @@ public class ReservedState implements ResourceState {
         return "RESERVED";
     }
 }
-

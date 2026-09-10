@@ -2,21 +2,22 @@ package com.labresa.patterns.state;
 
 import com.labresa.model.Resource;
 
-public interface  ResourceState {
+/**
+ * State pattern, simplified in Round 4: now models only the resource-level
+ * maintenance toggle (Available <-> UnderMaintenance), which a Technician
+ * controls manually (see new requirement). reserve()/checkIn()/checkOut()
+ * were removed from this interface because they modeled a SINGLE physical
+ * unit's lifecycle; the new quantity-based booking model (multiple units per
+ * resource, tracked via Resource.availableQuantity) means individual booking
+ * lifecycle now lives on Reservation.status instead, not on a single global
+ * Resource state. See CHANGES_SUMMARY.md Round 4 for the full rationale.
+ */
+public interface ResourceState {
 
-    /** Called when a reservation is confirmed for this resource. */
-    void reserve(Resource resource);
-
-    /** Called when the user physically checks the resource in for use. */
-    void checkIn(Resource resource);
-
-    /** Called when the user finishes using the resource. */
-    void checkOut(Resource resource);
-
-    /** Called when the usage counter crosses the maintenance threshold. */
+    /** Called when maintenance staff flag this resource as out of service. */
     void markUnderMaintenance(Resource resource);
 
-    /** Called when maintenance staff complete servicing. */
+    /** Called when maintenance staff complete servicing and restore availability. */
     void markAvailable(Resource resource);
 
     /** Human readable name, also used for persistence (status column). */
